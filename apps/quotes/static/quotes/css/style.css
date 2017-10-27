@@ -1,0 +1,19 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+#wrapper{
+    width: 1000px;
+    margin: auto;
+}
+
+.display{
+    display:inline-block;
+    padding: 10px;
+}
+
+.favorite{
+    display: inline-block;
+    padding: 10px;
+}

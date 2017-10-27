@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'quotes/css/style.css' %}">
+
+
+        <title>Home</title>
+    </head>
+    <body>
+        <div id= 'wrapper'>
+
+            <div class 'peaceout'>
+                <a href='/logout' type = 'button'>Logout</a>
+            </div>
+    
+            <div class"main">
+                <h2>Tribute a Quote</h2>
+                {% if messages %}
+                  {% for message in messages%}
+                <p {% if message.tags %} class="{{ message.tags }}" {% endif %} >
+                    {{ message }}
+                </p>
+                  {% endfor %}
+                {% endif %}
+    
+    
+                <form action="/add" method="post">
+                  {% csrf_token %}
+                  <p>Author:<input type="text" name="author"></p>
+                  <textarea name="description" cols="50" rows="3"></textarea>
+                  <p><input type="submit" value="Add"></p>
+                </form>
+    
+              </div>
+    
+    
+    
+              <div class="display">
+                  
+                <h2>Quoteable Quotes</h2>
+    
+                {% for key in recent_quotes %} 
+                    <!-- key accesses the "quotes"   -->
+                
+                <p>Author: {{key.author}}</p>
+                
+                <p>Quote:{{key.description}}</p>
+                  
+                  <p>Posted By:<a href='/user_page/{{key.user_upload.id}}'>{{key.user_upload.first_name}}</a></p>
+                  
+                  <p><a href= '/favorite/{{key.id}}'>Add to Favorites</a></p>
+                  <p>_______________________________</p>
+                  {% endfor %}
+              </div>
+            
+    
+    
+    
+    
+              <div class = "favorite">
+                  <h3>Your Favorites</h3>
+    
+                    {% for key in favorite %}
+    
+                    <p>{{key.author}}</p>
+                    <p>{{key.description}}</p>
+    
+    
+                <p>Posted By:<a href='/user_page/{{key.user_upload.id}}'>{{key.user_upload.first_name}}</a></p>
+    
+                <p><a href='/remove/{{key.id}}'>Remove from Favroites</a></p>
+                <p>_______________________________</p>
+    
+                    {% endfor %}
+    
+              </div>
+        </div>
+    </body>
+</html>
